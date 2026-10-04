@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -17,25 +17,32 @@
     }
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", "PingFang SC", "Microsoft YaHei", Helvetica, Arial, sans-serif;
       background: radial-gradient(1200px 600px at 50% -10%, #16202c 0%, var(--bg) 60%);
       color: var(--text);
       min-height: 100vh;
       display: flex;
-      align-items: center;
+      align-items: flex-start;
       justify-content: center;
-      padding: 24px;
+      padding: 32px 20px;
       line-height: 1.6;
     }
-    .card {
+    .container {
       width: 100%;
-      max-width: 640px;
+      max-width: 1100px;
       background: var(--bg-card);
       border: 1px solid var(--border);
       border-radius: 16px;
-      padding: 48px 40px;
+      padding: 40px;
       box-shadow: 0 24px 60px rgba(0,0,0,0.5);
     }
+    .columns {
+      display: grid;
+      grid-template-columns: 5fr 7fr;
+      gap: 40px;
+    }
+    .col-left { }
+    .col-right { }
     .header { display: flex; align-items: center; gap: 20px; margin-bottom: 28px; }
     .avatar {
       width: 84px; height: 84px; border-radius: 50%;
@@ -77,78 +84,231 @@
       background: #000;
     }
     .twitter-frame iframe { display: block; width: 100%; border: 0; }
+    .media-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+    .media-card {
+      text-decoration: none; color: var(--text);
+      display: block;
+    }
+    .media-cover {
+      width: 100%;
+      aspect-ratio: 2 / 3;
+      border-radius: 8px;
+      overflow: hidden;
+      background: #000;
+      border: 1px solid var(--border);
+    }
+    .media-cover img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform .2s;
+    }
+    .media-card:hover .media-cover img { transform: scale(1.05); }
+    .media-title {
+      font-size: 13px; margin-top: 8px;
+      line-height: 1.4;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    .media-rating { color: var(--accent-2); font-size: 12px; margin-top: 2px; }
     .footer { margin-top: 36px; text-align: center; color: var(--text-muted); font-size: 12px; }
+    @media (max-width: 860px) {
+      .columns { grid-template-columns: 1fr; gap: 24px; }
+      .container { padding: 28px 20px; }
+    }
     @media (max-width: 480px) {
-      .card { padding: 32px 24px; }
+      .media-grid { grid-template-columns: repeat(2, 1fr); }
       .header { flex-direction: column; text-align: center; }
     }
   </style>
 </head>
 <body>
-  <main class="card">
-    <div class="header">
-      <div class="avatar">G</div>
-      <div>
-        <h1>glorysdj</h1>
-        <div class="tagline">Software Developer</div>
+  <div class="container">
+    <div class="columns">
+      <div class="col-left">
+        <div class="header">
+          <div class="avatar">G</div>
+          <div>
+            <h1>glorysdj</h1>
+            <div class="tagline">Software Developer</div>
+          </div>
+        </div>
+
+        <section class="section">
+          <h2>About</h2>
+          <p class="bio">Software Developer of BigDL, IPEX-LLM, llm-scaler.</p>
+        </section>
+
+        <section class="section">
+          <h2>Skills</h2>
+          <div class="skills">
+            <span class="skill">JavaEE</span>
+            <span class="skill">Scala</span>
+            <span class="skill">Big Data</span>
+            <span class="skill">Cloud Native</span>
+            <span class="skill">Machine Learning</span>
+            <span class="skill">Deep Learning</span>
+            <span class="skill">PPML</span>
+            <span class="skill">LLM</span>
+            <span class="skill">vLLM</span>
+            <span class="skill">SGLang</span>
+            <span class="skill">ComfyUI</span>
+          </div>
+        </section>
+
+        <section class="section">
+          <h2>Links</h2>
+          <div class="links">
+            <a class="link" href="https://github.com/glorysdj" target="_blank" rel="noopener">
+              <svg viewBox="0 0 16 16"><path d="M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.89 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.87 3.75 3.65 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z"></path></svg>
+              GitHub
+            </a>
+            <a class="link" href="https://twitter.com/glorysdj" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"></path></svg>
+              Twitter
+            </a>
+            <a class="link" href="https://weibo.com/glorysdj" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24"><path d="M10.1 20.3c-3.9.4-7.3-1.4-7.6-4-.3-2.6 2.6-5 6.5-5.4 3.9-.4 7.3 1.4 7.6 4 .3 2.6-2.6 5-6.5 5.4zm.6-7.2c-1.7.2-3 1.2-2.8 2.4.2 1.2 1.7 2 3.4 1.8 1.7-.2 3-1.2 2.8-2.4-.2-1.2-1.7-2-3.4-1.8zM18.5 9.5c.3-.9.1-1.9-.5-2.7-.6-.8-1.6-1.2-2.6-1.1.2-.8 0-1.7-.6-2.4-.7-.8-1.8-1.1-2.8-.8l.4 1.5c.5-.1 1 .1 1.3.5.3.4.3 1 .1 1.4l1.5.4c.4-.2 1-.1 1.3.3.3.4.4 1 .2 1.4l1.7.5z"></path></svg>
+              Weibo
+            </a>
+            <a class="link" href="https://www.douban.com/people/glorysdj/" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 100 20 10 10 0 000-20zm0 3a2.5 2.5 0 110 5 2.5 2.5 0 010-5zm-4 9v-1a2 2 0 012-2h4a2 2 0 012 2v1H8z"></path></svg>
+              Douban
+            </a>
+          </div>
+        </section>
+
+        <section class="section">
+          <h2>Latest Tweets</h2>
+          <div class="twitter-frame">
+            <a class="twitter-timeline" data-height="520" data-theme="dark" data-dnt="true" href="https://twitter.com/glorysdj?ref_src=twsrc%5Etfw">Tweets by glorysdj</a>
+          </div>
+        </section>
+      </div>
+
+      <div class="col-right">
+        <section class="section" style="margin-top:0">
+          <h2>Favorite Books</h2>
+          <div class="media-grid">
+        <a class="media-card" href="https://book.douban.com/subject/1440972/" target="_blank" rel="noopener">
+          <div class="media-cover"><img src="https://img2.doubanio.com/view/subject/l/public/s1524731.jpg" alt="博尔赫斯小说集" loading="lazy"></div>
+          <div class="media-title">博尔赫斯小说集</div>
+          <div class="media-rating">★ 9.2</div>
+        </a>
+        <a class="media-card" href="https://book.douban.com/subject/1949579/" target="_blank" rel="noopener">
+          <div class="media-cover"><img src="https://img3.doubanio.com/view/subject/l/public/s3395897.jpg" alt="康拉德小说选" loading="lazy"></div>
+          <div class="media-title">康拉德小说选</div>
+          <div class="media-rating">★ 9.0</div>
+        </a>
+        <a class="media-card" href="https://book.douban.com/subject/2008724/" target="_blank" rel="noopener">
+          <div class="media-cover"><img src="https://img3.doubanio.com/view/subject/l/public/s2344238.jpg" alt="百年孤独" loading="lazy"></div>
+          <div class="media-title">百年孤独</div>
+          <div class="media-rating">★ 9.1</div>
+        </a>
+        <a class="media-card" href="https://book.douban.com/subject/1263707/" target="_blank" rel="noopener">
+          <div class="media-cover"><img src="https://img9.doubanio.com/view/subject/l/public/s1422586.jpg" alt="怪异故事集" loading="lazy"></div>
+          <div class="media-title">怪异故事集</div>
+          <div class="media-rating">★ 8.8</div>
+        </a>
+        <a class="media-card" href="https://book.douban.com/subject/1319455/" target="_blank" rel="noopener">
+          <div class="media-cover"><img src="https://img3.doubanio.com/view/subject/l/public/s2902917.jpg" alt="瓦尔登湖" loading="lazy"></div>
+          <div class="media-title">瓦尔登湖</div>
+          <div class="media-rating">★ 8.1</div>
+        </a>
+        <a class="media-card" href="https://book.douban.com/subject/3136255/" target="_blank" rel="noopener">
+          <div class="media-cover"><img src="https://img9.doubanio.com/view/subject/l/public/s3166525.jpg" alt="一个陌生女人的来信" loading="lazy"></div>
+          <div class="media-title">一个陌生女人的来信</div>
+          <div class="media-rating">★ 8.8</div>
+        </a>
+        <a class="media-card" href="https://book.douban.com/subject/1917972/" target="_blank" rel="noopener">
+          <div class="media-cover"><img src="https://img3.doubanio.com/view/subject/l/public/s2577057.jpg" alt="在路上" loading="lazy"></div>
+          <div class="media-title">在路上</div>
+          <div class="media-rating">★ 7.8</div>
+        </a>
+        <a class="media-card" href="https://book.douban.com/subject/10779650/" target="_blank" rel="noopener">
+          <div class="media-cover"><img src="https://img3.doubanio.com/view/subject/l/public/s10279533.jpg" alt="追忆似水年华" loading="lazy"></div>
+          <div class="media-title">追忆似水年华</div>
+          <div class="media-rating">★ 9.2</div>
+        </a>
+        <a class="media-card" href="https://book.douban.com/subject/2118290/" target="_blank" rel="noopener">
+          <div class="media-cover"><img src="https://img3.doubanio.com/view/subject/l/public/s2479643.jpg" alt="兴唐传" loading="lazy"></div>
+          <div class="media-title">兴唐传</div>
+          <div class="media-rating">★ 8.8</div>
+        </a>
+        <a class="media-card" href="https://book.douban.com/subject/1836555/" target="_blank" rel="noopener">
+          <div class="media-cover"><img src="https://img9.doubanio.com/view/subject/l/public/s9077296.jpg" alt="史记" loading="lazy"></div>
+          <div class="media-title">史记</div>
+          <div class="media-rating">★ 9.6</div>
+        </a>
+          </div>
+        </section>
+
+        <section class="section">
+          <h2>Favorite Movies</h2>
+          <div class="media-grid">
+        <a class="media-card" href="https://movie.douban.com/subject/1361276/" target="_blank" rel="noopener">
+          <div class="media-cover"><img src="https://img3.doubanio.com/view/photo/s_ratio_poster/public/p2161627049.jpg" alt="八部半 8½" loading="lazy"></div>
+          <div class="media-title">八部半 8½</div>
+          <div class="media-rating">★ 8.6</div>
+        </a>
+        <a class="media-card" href="https://movie.douban.com/subject/1294781/" target="_blank" rel="noopener">
+          <div class="media-cover"><img src="https://img3.doubanio.com/view/photo/s_ratio_poster/public/p2204675868.jpg" alt="卡比利亚之夜 Le notti di Cabiria" loading="lazy"></div>
+          <div class="media-title">卡比利亚之夜 Le notti di Cabiria</div>
+          <div class="media-rating">★ 9.1</div>
+        </a>
+        <a class="media-card" href="https://movie.douban.com/subject/1303525/" target="_blank" rel="noopener">
+          <div class="media-cover"><img src="https://img9.doubanio.com/view/photo/s_ratio_poster/public/p2384320756.jpg" alt="流浪者之歌 Дом за вешање" loading="lazy"></div>
+          <div class="media-title">流浪者之歌 Дом за вешање</div>
+          <div class="media-rating">★ 8.9</div>
+        </a>
+        <a class="media-card" href="https://movie.douban.com/subject/1300027/" target="_blank" rel="noopener">
+          <div class="media-cover"><img src="https://img9.doubanio.com/view/photo/s_ratio_poster/public/p2536559026.jpg" alt="比利小子 Pat Garrett and Billy the Kid" loading="lazy"></div>
+          <div class="media-title">比利小子 Pat Garrett and Billy the Kid</div>
+          <div class="media-rating">★ 7.8</div>
+        </a>
+        <a class="media-card" href="https://movie.douban.com/subject/1295134/" target="_blank" rel="noopener">
+          <div class="media-cover"><img src="https://img3.doubanio.com/view/photo/s_ratio_poster/public/p2360186982.jpg" alt="双虎屠龙 The Man Who Shot Liberty Valance" loading="lazy"></div>
+          <div class="media-title">双虎屠龙 The Man Who Shot Liberty Valance</div>
+          <div class="media-rating">★ 8.2</div>
+        </a>
+        <a class="media-card" href="https://movie.douban.com/subject/1298817/" target="_blank" rel="noopener">
+          <div class="media-cover"><img src="https://img3.doubanio.com/view/photo/s_ratio_poster/public/p2923052952.jpg" alt="淘金记 The Gold Rush" loading="lazy"></div>
+          <div class="media-title">淘金记 The Gold Rush</div>
+          <div class="media-rating">★ 9.2</div>
+        </a>
+        <a class="media-card" href="https://movie.douban.com/subject/1361252/" target="_blank" rel="noopener">
+          <div class="media-cover"><img src="https://img9.doubanio.com/view/photo/s_ratio_poster/public/p2376274685.jpg" alt="夜 La notte" loading="lazy"></div>
+          <div class="media-title">夜 La notte</div>
+          <div class="media-rating">★ 8.7</div>
+        </a>
+        <a class="media-card" href="https://movie.douban.com/subject/1307265/" target="_blank" rel="noopener">
+          <div class="media-cover"><img src="https://img9.doubanio.com/view/photo/s_ratio_poster/public/p1994505696.jpg" alt="晚春 晩春" loading="lazy"></div>
+          <div class="media-title">晚春 晩春</div>
+          <div class="media-rating">★ 8.6</div>
+        </a>
+        <a class="media-card" href="https://movie.douban.com/subject/1298870/" target="_blank" rel="noopener">
+          <div class="media-cover"><img src="https://img3.doubanio.com/view/photo/s_ratio_poster/public/p2319858048.jpg" alt="浮云 浮雲" loading="lazy"></div>
+          <div class="media-title">浮云 浮雲</div>
+          <div class="media-rating">★ 8.4</div>
+        </a>
+        <a class="media-card" href="https://movie.douban.com/subject/1292434/" target="_blank" rel="noopener">
+          <div class="media-cover"><img src="https://img3.doubanio.com/view/photo/s_ratio_poster/public/p2923629857.jpg" alt="一一" loading="lazy"></div>
+          <div class="media-title">一一</div>
+          <div class="media-rating">★ 9.1</div>
+        </a>
+          </div>
+        </section>
       </div>
     </div>
 
-    <section class="section">
-      <h2>About</h2>
-      <p class="bio">
-        Software Developer of BigDL, IPEX-LLM, llm-scaler.
-      </p>
-    </section>
-
-    <section class="section">
-      <h2>Skills</h2>
-      <div class="skills">
-        <span class="skill">JavaEE</span>
-        <span class="skill">Scala</span>
-        <span class="skill">Big Data</span>
-        <span class="skill">Cloud Native</span>
-        <span class="skill">Machine Learning</span>
-        <span class="skill">Deep Learning</span>
-        <span class="skill">PPML</span>
-        <span class="skill">LLM</span>
-        <span class="skill">vLLM</span>
-        <span class="skill">SGLang</span>
-        <span class="skill">ComfyUI</span>
-      </div>
-    </section>
-
-    <section class="section">
-      <h2>Links</h2>
-      <div class="links">
-        <a class="link" href="https://github.com/glorysdj" target="_blank" rel="noopener">
-          <svg viewBox="0 0 16 16"><path d="M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.89 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.87 3.75 3.65 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z"></path></svg>
-          GitHub
-        </a>
-        <a class="link" href="https://twitter.com/glorysdj" target="_blank" rel="noopener">
-          <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"></path></svg>
-          Twitter
-        </a>
-        <a class="link" href="https://weibo.com/glorysdj" target="_blank" rel="noopener">
-          <svg viewBox="0 0 24 24"><path d="M10.1 20.3c-3.9.4-7.3-1.4-7.6-4-.3-2.6 2.6-5 6.5-5.4 3.9-.4 7.3 1.4 7.6 4 .3 2.6-2.6 5-6.5 5.4zm.6-7.2c-1.7.2-3 1.2-2.8 2.4.2 1.2 1.7 2 3.4 1.8 1.7-.2 3-1.2 2.8-2.4-.2-1.2-1.7-2-3.4-1.8zM18.5 9.5c.3-.9.1-1.9-.5-2.7-.6-.8-1.6-1.2-2.6-1.1.2-.8 0-1.7-.6-2.4-.7-.8-1.8-1.1-2.8-.8l.4 1.5c.5-.1 1 .1 1.3.5.3.4.3 1 .1 1.4l1.5.4c.4-.2 1-.1 1.3.3.3.4.4 1 .2 1.4l1.7.5z"></path></svg>
-          Weibo
-        </a>
-        <a class="link" href="https://www.douban.com/people/glorysdj/" target="_blank" rel="noopener">
-          <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 100 20 10 10 0 000-20zm0 3a2.5 2.5 0 110 5 2.5 2.5 0 010-5zm-4 9v-1a2 2 0 012-2h4a2 2 0 012 2v1H8z"></path></svg>
-          Douban
-        </a>
-      </div>
-    </section>
-
-    <section class="section">
-      <h2>Latest Tweets</h2>
-      <div class="twitter-frame">
-        <a class="twitter-timeline" data-height="520" data-theme="dark" data-dnt="true" href="https://twitter.com/glorysdj?ref_src=twsrc%5Etfw">Tweets by glorysdj</a>
-      </div>
-    </section>
-
     <div class="footer">© glorysdj · Built with GitHub Pages</div>
-  </main>
+  </div>
   <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 </body>
 </html>
