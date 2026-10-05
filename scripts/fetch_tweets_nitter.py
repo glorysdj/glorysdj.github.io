@@ -101,9 +101,9 @@ def parse_timeline_page(page: str, instance: str):
     return tweets, next_cursor
 
 
-def fetch_via_html(instance: str, is_first_instance: bool = False):
+def fetch_via_html(instance: str):
     """Follow the timeline cursor until MAX_TWEETS or no more pages.
-    Saves the first instance's first page to debug_nitter_first.html for debugging."""
+    Saves the first page (that parsed 0 tweets) to debug_nitter_first.html for debugging."""
     collected = []
     seen = set()
     cursor = None
@@ -113,15 +113,16 @@ def fetch_via_html(instance: str, is_first_instance: bool = False):
         if cursor:
             url += f"?cursor={quote(cursor)}"
         page = http_get(url).decode("utf-8", "replace")
-        if first_page and is_first_instance:
+        tweets, cursor = parse_timeline_page(page, instance)
+        if first_page and not tweets:
+            # Save the page that returned 200 but parsed 0 tweets — this is what we need to fix
             try:
                 with open("debug_nitter_first.html", "w", encoding="utf-8") as f:
                     f.write(page)
-                print(f"DEBUG: saved first-instance page ({len(page)} chars) from {instance}")
+                print(f"DEBUG: saved {instance} page ({len(page)} chars) — 0 tweets parsed")
             except Exception as e:
                 print(f"DEBUG: failed to save HTML: {e}")
-            first_page = False
-        tweets, cursor = parse_timeline_page(page, instance)
+        first_page = False
         for t in tweets:
             key = t["id"] or t["url"] or t["text"][:64]
             if key in seen:
@@ -182,9 +183,9 @@ def write_json(tweets, source):
 
 def main():
     # 1) Try HTML pagination on each instance until we get enough tweets.
-    for i, instance in enumerate(INSTANCES):
+    for instance in INSTANCES:
         try:
-            tweets = fetch_via_html(instance, is_first_instance=(i == 0))
+            tweets = fetch_via_html(instance)
             if tweets:
                 write_json(tweets, f"nitter-html:{instance}")
                 print(f"OK: fetched {len(tweets)} tweets via HTML from {instance}")
