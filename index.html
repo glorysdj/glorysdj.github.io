@@ -70,13 +70,6 @@
     }
     .link:hover { border-color: var(--accent); background: rgba(88,166,255,0.08); transform: translateY(-2px); }
     .link svg { width: 18px; height: 18px; fill: currentColor; }
-    .twitter-frame {
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      overflow: hidden;
-      background: #000;
-    }
-    .twitter-frame iframe { display: block; width: 100%; border: 0; }
     .media-grid {
       display: grid;
       grid-template-columns: repeat(5, 1fr);
@@ -216,13 +209,6 @@
               <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 100 20 10 10 0 000-20zm0 3a2.5 2.5 0 110 5 2.5 2.5 0 010-5zm-4 9v-1a2 2 0 012-2h4a2 2 0 012 2v1H8z"></path></svg>
               Douban
             </a>
-          </div>
-        </section>
-
-        <section class="section">
-          <h2>Latest Tweets</h2>
-          <div class="twitter-frame">
-            <a class="twitter-timeline" data-height="520" data-theme="dark" data-dnt="true" href="https://twitter.com/glorysdj?ref_src=twsrc%5Etfw">Tweets by glorysdj</a>
           </div>
         </section>
     </div>
@@ -506,6 +492,5 @@
       if (names.indexOf(h0) !== -1) activate(h0);
     })();
   </script>
-  <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 </body>
 </html>
