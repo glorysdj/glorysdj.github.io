@@ -1,0 +1,48 @@
+name: Fetch Tweets
+
+on:
+  schedule:
+    - cron: '*/30 * * * *'
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+concurrency:
+  group: fetch-tweets
+  cancel-in-progress: false
+
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install twscrape
+        run: pip install --upgrade pip && pip install twscrape
+
+      - name: Fetch tweets
+        env:
+          TWITTER_USERNAME: ${{ secrets.TWITTER_USERNAME }}
+          TWITTER_PASSWORD: ${{ secrets.TWITTER_PASSWORD }}
+          TWITTER_EMAIL: ${{ secrets.TWITTER_EMAIL }}
+          TWITTER_EMAIL_PASSWORD: ${{ secrets.TWITTER_EMAIL_PASSWORD }}
+        run: python scripts/fetch_tweets.py
+
+      - name: Commit tweets.json
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          git config user.name "glorysdj-tweets-bot"
+          git config user.email "tweets-bot@users.noreply.github.com"
+          git add tweets.json
+          if git diff --staged --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "chore: update tweets.json"
+            git push
+          fi
