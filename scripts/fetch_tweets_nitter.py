@@ -115,11 +115,12 @@ def fetch_via_html(instance: str):
         page = http_get(url).decode("utf-8", "replace")
         tweets, cursor = parse_timeline_page(page, instance)
         if first_page and not tweets:
-            # Save the page that returned 200 but parsed 0 tweets — this is what we need to fix
+            # Save the page that returned 200 but parsed 0 tweets — unique file per instance
             try:
-                with open("debug_nitter_first.html", "w", encoding="utf-8") as f:
+                fname = f"debug_{instance.replace('.', '_')}.html"
+                with open(fname, "w", encoding="utf-8") as f:
                     f.write(page)
-                print(f"DEBUG: saved {instance} page ({len(page)} chars) — 0 tweets parsed")
+                print(f"DEBUG: saved {fname} ({len(page)} chars) — 0 tweets parsed")
             except Exception as e:
                 print(f"DEBUG: failed to save HTML: {e}")
         first_page = False
