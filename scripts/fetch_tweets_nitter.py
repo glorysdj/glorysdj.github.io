@@ -101,15 +101,25 @@ def parse_timeline_page(page: str, instance: str):
 
 
 def fetch_via_html(instance: str):
-    """Follow the timeline cursor until MAX_TWEETS or no more pages."""
+    """Follow the timeline cursor until MAX_TWEETS or no more pages.
+    Saves the first page's raw HTML to debug_nitter.html for debugging."""
     collected = []
     seen = set()
     cursor = None
+    first_page = True
     for _page in range(0, 40):  # hard cap on pages
         url = f"https://{instance}/{SCREEN_NAME}"
         if cursor:
             url += f"?cursor={quote(cursor)}"
         page = http_get(url).decode("utf-8", "replace")
+        if first_page:
+            try:
+                with open("debug_nitter.html", "w", encoding="utf-8") as f:
+                    f.write(page)
+                print(f"DEBUG: saved first page HTML ({len(page)} chars) from {instance}")
+            except Exception as e:
+                print(f"DEBUG: failed to save HTML: {e}")
+            first_page = False
         tweets, cursor = parse_timeline_page(page, instance)
         for t in tweets:
             key = t["id"] or t["url"] or t["text"][:64]
