@@ -36,8 +36,8 @@ jobs:
           git config user.name "glorysdj-tweets-bot"
           git config user.email "tweets-bot@users.noreply.github.com"
           git add tweets.json
-          # If HTML parsing failed, the script saved debug HTML — commit it for debugging
-          for f in debug_nitter_first.html debug_nitter.html; do
+          # If HTML parsing failed, the script saved debug HTML per instance — commit them for debugging
+          for f in debug_*.html; do
             if [ -f "$f" ]; then
               echo "$f present (HTML parse failed) — committing for debugging"
               git add "$f"
