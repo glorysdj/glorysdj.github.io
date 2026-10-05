@@ -1,48 +1,44 @@
-name: Fetch Tweets
+name: Fetch Tweets (Nitter)
 
 on:
   schedule:
-    - cron: '*/30 * * * *'
-  workflow_dispatch: {}
+    # Every 30 minutes
+    - cron: "*/30 * * * *"
+  workflow_dispatch:
 
 permissions:
   contents: write
 
 concurrency:
-  group: fetch-tweets
+  group: tweets-nitter
   cancel-in-progress: false
 
 jobs:
   fetch:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@v4
 
-      - uses: actions/setup-python@v5
+      - name: Set up Python
+        uses: actions/setup-python@v5
         with:
-          python-version: '3.11'
+          python-version: "3.11"
 
-      - name: Install twscrape
-        run: pip install --upgrade pip && pip install twscrape
-
-      - name: Fetch tweets
+      - name: Fetch tweets from Nitter
         env:
-          TWITTER_USERNAME: ${{ secrets.TWITTER_USERNAME }}
-          TWITTER_PASSWORD: ${{ secrets.TWITTER_PASSWORD }}
-          TWITTER_EMAIL: ${{ secrets.TWITTER_EMAIL }}
-          TWITTER_EMAIL_PASSWORD: ${{ secrets.TWITTER_EMAIL_PASSWORD }}
-        run: python scripts/fetch_tweets.py
+          TWEET_SCREEN_NAME: glorysdj
+          TWEET_MAX: "200"
+        run: python scripts/fetch_tweets_nitter.py
 
       - name: Commit tweets.json
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           git config user.name "glorysdj-tweets-bot"
           git config user.email "tweets-bot@users.noreply.github.com"
           git add tweets.json
-          if git diff --staged --quiet; then
-            echo "No changes to commit"
+          if git diff --cached --quiet; then
+            echo "No changes to tweets.json"
           else
-            git commit -m "chore: update tweets.json"
+            git commit -m "chore: update tweets.json ($(date -u +%Y-%m-%dT%H:%M:%SZ))"
             git push
           fi
