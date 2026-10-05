@@ -112,6 +112,8 @@ def solve_anubis(instance: str, page: str) -> bool:
     )
     try:
         http_get(submit_url)
+        cookies = [(c.name, c.value[:20], c.path, c.domain) for c in _cookie_jar]
+        print(f"DEBUG: cookies after pass-challenge: {cookies}")
         return True
     except (HTTPError, URLError, TimeoutError, OSError) as e:
         print(f"DEBUG: pass-challenge failed: {e}")
@@ -185,6 +187,10 @@ def fetch_via_html(instance: str):
         if is_anubis_challenge(page):
             if solve_anubis(instance, page):
                 page = http_get(url).decode("utf-8", "replace")
+                if is_anubis_challenge(page):
+                    print(f"DEBUG: still Anubis challenge after retry. first 300: {page[:300]!r}")
+                else:
+                    print(f"DEBUG: retry OK, not Anubis. first 200: {page[:200]!r}")
             else:
                 break
         tweets, cursor = parse_timeline_page(page, instance)
