@@ -118,6 +118,22 @@
     }
     .media-rating { color: var(--accent-2); font-size: 11px; margin-top: 2px; }
     .footer { margin-top: 36px; text-align: center; color: var(--text-muted); font-size: 12px; }
+    .joke-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 14px;
+    }
+    .joke-card {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 16px 18px;
+      font-size: 14px;
+      line-height: 1.75;
+      transition: border-color .15s, transform .15s;
+    }
+    .joke-card:hover { border-color: var(--accent); transform: translateY(-2px); }
+    .joke-card p + p { margin-top: 10px; }
     @media (max-width: 860px) {
       .columns { grid-template-columns: 1fr; gap: 24px; }
       .container { padding: 28px 20px; }
@@ -194,6 +210,60 @@
 
       <div class="col-right">
         <section class="section" style="margin-top:0">
+          <h2>Favorite Movies</h2>
+          <div class="media-grid">
+        <a class="media-card" href="https://movie.douban.com/subject/1361276/" target="_blank" rel="noopener">
+          <div class="media-cover"><img src="https://img3.doubanio.com/view/photo/s_ratio_poster/public/p2161627049.jpg" alt="八部半 8½" loading="lazy"></div>
+          <div class="media-title">八部半 8½</div>
+          <div class="media-rating">★ 8.6</div>
+        </a>
+        <a class="media-card" href="https://movie.douban.com/subject/1294781/" target="_blank" rel="noopener">
+          <div class="media-cover"><img src="https://img3.doubanio.com/view/photo/s_ratio_poster/public/p2204675868.jpg" alt="卡比利亚之夜 Le notti di Cabiria" loading="lazy"></div>
+          <div class="media-title">卡比利亚之夜 Le notti di Cabiria</div>
+          <div class="media-rating">★ 9.1</div>
+        </a>
+        <a class="media-card" href="https://movie.douban.com/subject/1303525/" target="_blank" rel="noopener">
+          <div class="media-cover"><img src="https://img9.doubanio.com/view/photo/s_ratio_poster/public/p2384320756.jpg" alt="流浪者之歌 Дом за вешање" loading="lazy"></div>
+          <div class="media-title">流浪者之歌 Дом за вешање</div>
+          <div class="media-rating">★ 8.9</div>
+        </a>
+        <a class="media-card" href="https://movie.douban.com/subject/1300027/" target="_blank" rel="noopener">
+          <div class="media-cover"><img src="https://img9.doubanio.com/view/photo/s_ratio_poster/public/p2536559026.jpg" alt="比利小子 Pat Garrett and Billy the Kid" loading="lazy"></div>
+          <div class="media-title">比利小子 Pat Garrett and Billy the Kid</div>
+          <div class="media-rating">★ 7.8</div>
+        </a>
+        <a class="media-card" href="https://movie.douban.com/subject/1295134/" target="_blank" rel="noopener">
+          <div class="media-cover"><img src="https://img3.doubanio.com/view/photo/s_ratio_poster/public/p2360186982.jpg" alt="双虎屠龙 The Man Who Shot Liberty Valance" loading="lazy"></div>
+          <div class="media-title">双虎屠龙 The Man Who Shot Liberty Valance</div>
+          <div class="media-rating">★ 8.2</div>
+        </a>
+        <a class="media-card" href="https://movie.douban.com/subject/1298817/" target="_blank" rel="noopener">
+          <div class="media-cover"><img src="https://img3.doubanio.com/view/photo/s_ratio_poster/public/p2923052952.jpg" alt="淘金记 The Gold Rush" loading="lazy"></div>
+          <div class="media-title">淘金记 The Gold Rush</div>
+          <div class="media-rating">★ 9.2</div>
+        </a>
+        <a class="media-card" href="https://movie.douban.com/subject/1361252/" target="_blank" rel="noopener">
+          <div class="media-cover"><img src="https://img9.doubanio.com/view/photo/s_ratio_poster/public/p2376274685.jpg" alt="夜 La notte" loading="lazy"></div>
+          <div class="media-title">夜 La notte</div>
+          <div class="media-rating">★ 8.7</div>
+        </a>
+        <a class="media-card" href="https://movie.douban.com/subject/1307265/" target="_blank" rel="noopener">
+          <div class="media-cover"><img src="https://img9.doubanio.com/view/photo/s_ratio_poster/public/p1994505696.jpg" alt="晚春 晩春" loading="lazy"></div>
+          <div class="media-title">晚春 晩春</div>
+          <div class="media-rating">★ 8.6</div>
+        </a>
+        <a class="media-card" href="https://movie.douban.com/subject/1298870/" target="_blank" rel="noopener">
+          <div class="media-cover"><img src="https://img3.doubanio.com/view/photo/s_ratio_poster/public/p2319858048.jpg" alt="浮云 浮雲" loading="lazy"></div>
+          <div class="media-title">浮云 浮雲</div>
+          <div class="media-rating">★ 8.4</div>
+        </a>
+        <a class="media-card" href="https://movie.douban.com/subject/1292434/" target="_blank" rel="noopener">
+          <div class="media-cover"><img src="https://img3.doubanio.com/view/photo/s_ratio_poster/public/p2923629857.jpg" alt="一一" loading="lazy"></div>
+          <div class="media-title">一一</div>
+          <div class="media-rating">★ 9.1</div>
+        </a>
+          </div>
+        </section><section class="section">
           <h2>Favorite Books</h2>
           <div class="media-grid">
         <a class="media-card" href="https://book.douban.com/subject/1440972/" target="_blank" rel="noopener">
@@ -249,63 +319,149 @@
           </div>
         </section>
 
-        <section class="section">
-          <h2>Favorite Movies</h2>
-          <div class="media-grid">
-        <a class="media-card" href="https://movie.douban.com/subject/1361276/" target="_blank" rel="noopener">
-          <div class="media-cover"><img src="https://img3.doubanio.com/view/photo/s_ratio_poster/public/p2161627049.jpg" alt="八部半 8½" loading="lazy"></div>
-          <div class="media-title">八部半 8½</div>
-          <div class="media-rating">★ 8.6</div>
-        </a>
-        <a class="media-card" href="https://movie.douban.com/subject/1294781/" target="_blank" rel="noopener">
-          <div class="media-cover"><img src="https://img3.doubanio.com/view/photo/s_ratio_poster/public/p2204675868.jpg" alt="卡比利亚之夜 Le notti di Cabiria" loading="lazy"></div>
-          <div class="media-title">卡比利亚之夜 Le notti di Cabiria</div>
-          <div class="media-rating">★ 9.1</div>
-        </a>
-        <a class="media-card" href="https://movie.douban.com/subject/1303525/" target="_blank" rel="noopener">
-          <div class="media-cover"><img src="https://img9.doubanio.com/view/photo/s_ratio_poster/public/p2384320756.jpg" alt="流浪者之歌 Дом за вешање" loading="lazy"></div>
-          <div class="media-title">流浪者之歌 Дом за вешање</div>
-          <div class="media-rating">★ 8.9</div>
-        </a>
-        <a class="media-card" href="https://movie.douban.com/subject/1300027/" target="_blank" rel="noopener">
-          <div class="media-cover"><img src="https://img9.doubanio.com/view/photo/s_ratio_poster/public/p2536559026.jpg" alt="比利小子 Pat Garrett and Billy the Kid" loading="lazy"></div>
-          <div class="media-title">比利小子 Pat Garrett and Billy the Kid</div>
-          <div class="media-rating">★ 7.8</div>
-        </a>
-        <a class="media-card" href="https://movie.douban.com/subject/1295134/" target="_blank" rel="noopener">
-          <div class="media-cover"><img src="https://img3.doubanio.com/view/photo/s_ratio_poster/public/p2360186982.jpg" alt="双虎屠龙 The Man Who Shot Liberty Valance" loading="lazy"></div>
-          <div class="media-title">双虎屠龙 The Man Who Shot Liberty Valance</div>
-          <div class="media-rating">★ 8.2</div>
-        </a>
-        <a class="media-card" href="https://movie.douban.com/subject/1298817/" target="_blank" rel="noopener">
-          <div class="media-cover"><img src="https://img3.doubanio.com/view/photo/s_ratio_poster/public/p2923052952.jpg" alt="淘金记 The Gold Rush" loading="lazy"></div>
-          <div class="media-title">淘金记 The Gold Rush</div>
-          <div class="media-rating">★ 9.2</div>
-        </a>
-        <a class="media-card" href="https://movie.douban.com/subject/1361252/" target="_blank" rel="noopener">
-          <div class="media-cover"><img src="https://img9.doubanio.com/view/photo/s_ratio_poster/public/p2376274685.jpg" alt="夜 La notte" loading="lazy"></div>
-          <div class="media-title">夜 La notte</div>
-          <div class="media-rating">★ 8.7</div>
-        </a>
-        <a class="media-card" href="https://movie.douban.com/subject/1307265/" target="_blank" rel="noopener">
-          <div class="media-cover"><img src="https://img9.doubanio.com/view/photo/s_ratio_poster/public/p1994505696.jpg" alt="晚春 晩春" loading="lazy"></div>
-          <div class="media-title">晚春 晩春</div>
-          <div class="media-rating">★ 8.6</div>
-        </a>
-        <a class="media-card" href="https://movie.douban.com/subject/1298870/" target="_blank" rel="noopener">
-          <div class="media-cover"><img src="https://img3.doubanio.com/view/photo/s_ratio_poster/public/p2319858048.jpg" alt="浮云 浮雲" loading="lazy"></div>
-          <div class="media-title">浮云 浮雲</div>
-          <div class="media-rating">★ 8.4</div>
-        </a>
-        <a class="media-card" href="https://movie.douban.com/subject/1292434/" target="_blank" rel="noopener">
-          <div class="media-cover"><img src="https://img3.doubanio.com/view/photo/s_ratio_poster/public/p2923629857.jpg" alt="一一" loading="lazy"></div>
-          <div class="media-title">一一</div>
-          <div class="media-rating">★ 9.1</div>
-        </a>
-          </div>
-        </section>
+        
       </div>
     </div>
+
+    <section class="section">
+      <h2>从中作梗</h2>
+      <div class="joke-grid">
+        <div class="joke-card"><p>汨罗江前，屈原对渔父说，“como el agua en el agua.”（博尔赫斯，《另一次死亡》，“死亡就像水消失在水里”）</p></div>
+        <div class="joke-card"><p>雪夜蔡州，李愬说：“Do not go gentle into that good night！”（迪兰托马斯，《不要温和地走进那个良夜》，“不要温和地走进那个良夜！”）</p></div>
+        <div class="joke-card"><p>崖山，陆秀夫说：Comme je descendais des Fleuves impassibles, Je ne me sentis plus guidé par les haleurs.（兰波，《醉舟》，“当我顺着无情河水只有流淌，我感到纤夫已不再控制我的航向。”）</p></div>
+        <div class="joke-card"><p>项王已定东海来，西，与汉俱临广武而军，相守数月。当此时，彭越数反梁地，绝楚粮食，项王患之。为高俎，置太公其上，告汉王曰：“今不急下，吾烹太公。”汉王曰：“bon appétit”。（法语“祝你有个好胃口”）</p></div>
+        <div class="joke-card"><p>参合陂前，沙门支昙猛对慕容宝说，“Winter is coming!”（《权力的游戏》，《冰与火之歌》，“凛冬将至”）</p></div>
+        <div class="joke-card"><p>LA VIDA NO VALE NADA，太史公报任安书。（吉姆·贾木许，《控制的极限》，2009，生命的价值等于零）</p></div>
+        <div class="joke-card"><p>刘盈看着刘如意，“毒药与老妇”， 此非人所为。（弗兰克·卡普拉，《毒药与老妇》，1944）</p></div>
+        <div class="joke-card"><p>李牧灭襜褴，破东胡，降林胡，单于奔走，其后十余岁，匈奴谓之“边境杀手”。（丹尼斯·维伦纽瓦，《边境杀手》，2015）</p></div>
+        <div class="joke-card"><p>己巳，耶律璟如怀州，猎获熊，欢饮方醉，驰还行宫。是夜，“猎人之夜”，近侍小哥、盥人花哥、庖人辛古等六人反，帝遇弑，年三十九。（查尔斯·劳顿，《猎人之夜》，1955）</p></div>
+        <div class="joke-card"><p>《后汉书》: 十七年正月，当谒原陵，夜梦先帝，太后如平生欢，既寤，悲不能寐。小津安二郎,《父亲在世时》。</p></div>
+        <div class="joke-card"><p>《宋史》：狄青，字汉臣，汾州西河人。善骑射。临敌被发、带铜面具，出入贼中，皆披靡莫敢当。库布里克，《全金属外壳》。</p></div>
+        <div class="joke-card"><p>《世说新语》：周处。义兴郡溪渚长桥下有苍蛟，吞啖人。周处执剑侧伺，久之遇出，于是悬自桥上投下蛟背，而刺蛟数创。流血满溪，自郡渚至太湖勾浦乃死。霍华德·霍克斯，《赤胆屠龙》。</p></div>
+        <div class="joke-card"><p>咸丰七年，石达开被金牌召回天京，心中想的一定是“Stranger Than Paradise”.(天堂陌客，吉姆·贾木许，1984)</p></div>
+        <div class="joke-card"><p>历史上还有个猎人之夜，十二年冬，齐襄公游姑棼遂猎沛丘，见彘从者曰彭生，公怒射之，彘人立而啼。公惧坠车伤足，失屦…而无知连称管至父等闻公伤，乃遂率其众袭宫…求公不得。或见屦於户间，发视乃襄公遂弑之。猎与被猎，情欲阴谋，权力谋杀，善恶有报，hate&amp;love，不输于查尔斯·劳顿的神作猎人之夜</p></div>
+        <div class="joke-card"><p>孝惠、高后时，冒顿寖骄，乃为书，使使遗高后曰：“孤偾之君，生于沮泽之中，长于平野牛马之域，数至边境，愿游中国。陛下独立，孤偾独居。两主不乐，无以自虞，愿以所有，易其所无。”《汉书·匈奴传·一个陌生男人的来信》</p></div>
+        <div class="joke-card"><p>寇准少年富贵，性豪侈，喜剧饮，每宴宾客，多阖扉脱骖。家未尝爇油灯，虽庖匽所在，必然炬烛，不辨昼夜，谓之测不准原理。</p></div>
+        <div class="joke-card"><p>第五伦在职四年，迁蜀郡太守。蜀地肥饶，人吏富实，掾吏家资多至千万，皆鲜车怒马，以财货自达。是第五公设（社）。</p></div>
+        <div class="joke-card"><p>永熙三年，宇文泰鸩孝武，高欢造谣曰：“狐非狐，貉非貉，焦梨狗子啮断索。”宇文泰笑，曰：“没有困难的工作，只有勇敢的狗狗。”（汪汪队立大功）</p></div>
+        <div class="joke-card"><p>汉高祖十年，韩信对吕雉说，要有光。新朝末年，刘秀对王邑说，要有光。宋元祐八年，章惇对宋哲宗说，要有光。（韩信有三不杀，见天光不杀。刘秀召唤陨石之光。元祐更化，章惇点名司马光）</p></div>
+        <div class="joke-card"><p>烛影摇红，赵光义披头散发，“明天，又一个明天，又一个明天/迈着琐碎的脚步，日复一日地向前/直到生命终结的最后一个音符/我们所有的昨天，不过是/为傻瓜照亮了通往死亡的道路。/熄灭吧，熄灭吧，短暂的烛光！/生命不过是个行走的影子，一个可怜的伶人/在舞台上懊恼、张狂，短暂的时光过后/永远消亡。/这是个白痴讲述的故事/充满喧嚣与狂躁/但却毫无寓意。”（莎士比亚，麦克白）</p></div>
+        <div class="joke-card"><p>至元十六到十九年，文天祥面对留梦炎、宋恭帝、张弘范、吕文焕，说：“When seagulls follow the trawler, it is because they think sardines will be thrown into the sea.” (Eric Cantona 1995, Shia LaBeouf quoted 2014) （坎通纳名言：当海鸥跟随着渔船，那是因为他们认为沙丁鱼会被扔进海里。）</p></div>
+        <div class="joke-card"><p>宣帝何以故剑情深，因为“询根问底”。（汉宣帝刘病已更名刘询，不忘南园遗爱，不忘根底）</p></div>
+        <div class="joke-card"><p>孝宣皇帝，武帝曾孙，戾太子孙也。太子纳史良娣生史皇孙。皇孙生宣帝。生数月，遭巫蛊事，太子良娣皇孙王夫人皆遇害。曾孙虽在襁褓，犹坐收系郡邸狱。邴吉为廷尉监，治巫蛊于郡邸，怜其亡辜，使女徒复作淮阳赵征卿渭城胡组更乳养，私给衣食，视遇甚有恩，尝语之曰：“孤独的孩子，你是造物的恩宠。”</p></div>
+        <div class="joke-card"><p>乾德初，帝赵匡胤因晚朝与守信等饮酒，酒酣，帝歌曰：“酒干倘卖无。”</p></div>
+        <div class="joke-card"><p>汉武为何杀钩弋夫人，其天生握拳，不能直指，汉武披之，手即时伸，想必和“直指绣衣使者”江充有所勾连，为巫蛊之祸，何况子弱而母壮。</p></div>
+        <div class="joke-card"><p>司马迁于何处？江洲。何解？座中泣下谁最多，江洲司马青衫湿。</p></div>
+        <div class="joke-card"><p>绿林，赤眉，舂陵，铜马，青犊，王郎，两汉之际的黑暗森林。</p></div>
+        <div class="joke-card"><p>太元二十一年，庚申，晋孝武帝与后宫宴，妓乐尽侍，时张贵人年近三十，帝戏之曰：“汝以年亦当废矣，吾意更属少者。”又曰：“桓温苻坚皆不能奈我何，No man can kill me.”贵人潜怒，向夕，帝醉，寝于清暑殿，贵人以被蒙帝面，弑之，云：“I am no man!”（托尔金，指环王）</p></div>
+        <div class="joke-card"><p>昔赵襄子走晋阳，智伯以晋水灌之而不破；后前赵匈奴围晋阳，刘琨以胡笳守之亦不破。晋阳可谓“水与音乐的磐石之城”，辛达林语：Gondolin，昆雅语：Ondolindë。宋太祖不懂精灵语。（托尔金，精灵宝钻）</p></div>
+        <div class="joke-card"><p>屈原离骚，余虽好修姱以鞿羁兮，謇朝谇而夕替。周易乾九三，君子终日乾乾，夕惕，若厉，无咎。美人朝谇夕替者见逐，君子朝乾夕惕者无咎。</p></div>
+        <div class="joke-card"><p>看完东城梦魇，想起历史上的mare of east town。元丰八年，神宗崩，哲宗幼，高滔滔垂帘，起复司马光、文彦博等耆老于东都洛阳，司马光请更张新法，以母改子，废除新法，贬谪章惇蔡确，割地媾和西夏而边患不已，始开党争梦魇，直至靖康。史称元祐更化。（东城梦魇）</p></div>
+        <div class="joke-card"><p>狄伐晋，及箕。八月戊子，晋侯败狄于箕。郤缺获白狄子。先轸曰：「匹夫逞志于君而无讨，敢不自讨乎？」免胄入狄师，死焉。狄人归其元，面如生。子曰：“求仁而得仁，又何怨？” 每次读到先轸这段，就想起萨姆佩金法电影邓迪上校里展开旗帜的一次冲锋，Lieutenant, show the colours.</p></div>
+        <div class="joke-card"><p>庄公通焉，骤如崔氏，以崔子之冠赐人...乙亥，公问崔子，遂从姜氏，姜入于室，与崔子自侧户出，公拊楹而歌，侍人贾举止众从者，而入闭门，甲兴，公登台而请，弗许，请盟，弗许，请自刃於庙，勿许...公逾墙，又射之，中股，反队，遂弑之。#历史上的偷情之夜 齐庄公拊楹而歌</p></div>
+        <div class="joke-card"><p>金墉城，司马衷想起贾南风，感叹：怎么人们建起这么大一个城市，而你却只需要一个房间。（卡夫卡致密伦娜情书）</p></div>
+        <div class="joke-card"><p>何谓悲欣交集？空集。（弘一法师）</p></div>
+        <div class="joke-card"><p>武德三年四月，太宗击败宋金刚于柏壁。金刚走介州，太宗骑特勒骠追之，一百夜驰二百里，一日八战，皆破之，俘斩数万人，宿于雀鼠谷之西原。军士皆饥，太宗不食者二日，行至浩州乃得食，而金刚将尉迟敬德、寻相等皆来降。尉迟所以降者，盖念太宗“马来狂人”也。（马来狂人，茨威格名篇）</p></div>
+        <div class="joke-card"><p>至下曲阳，王郎兵在后，从者皆恐。至滹沱河，候吏还白“河水流澌，无船，不可济”。秀使王霸往视之。霸恐惊众，欲且前，阻水还，即诡曰：“冰坚可度。”官属皆喜。秀笑曰：“候吏果妄语也。”遂前。比至河，河冰亦合，乃令王霸护度，未毕数骑而冰解。后邯郸城下，王郎求全身不可得，夜亡走，为王霸追斩，尤恨当年之破冰。</p></div>
+        <div class="joke-card"><p>历史上称王郎的，晋书还有个卧冰求鲤的王祥，他也破冰，却是为后娘所逼。</p></div>
+        <div class="joke-card"><p>青梅煮酒，操从容谓备曰：“今天下英雄，惟使君与操耳。”备方食，失匕箸，曰，“德也狂生耳！”（刘备字玄德，德也狂生耳，纳兰性德词）</p></div>
+        <div class="joke-card"><p>孔融遇见王玄谟，喏，给你大梨。王质碰到慕容评，喏，给你柴薪。</p></div>
+        <div class="joke-card"><p>中统元年，阿里不哥于和林城西按坦河称汗，以其父托雷幼子守灶故，富于漠北，简称阿富汗。</p></div>
+        <div class="joke-card"><p>顷之，未发，太子迟之，荆轲怒，提徐夫人匕首，高渐离击筑，荆轲和而歌，紧握他不善于使用的匕首，向平原走去。（史记，刺客列传，博尔赫斯，南方）</p></div>
+        <div class="joke-card"><p>元嘉草草，有封狼居胥之意，佛狸闻之，送马十二匹并氈药等物，以书诺之，“设能至中山及桑干川，随意而行，来亦不迎，去亦不送”，济州王买德弃城走，青州张淮之亦弃城走。魏主送马、奇兵不设防、诺以桑干，史称“马奇诺防线”。而北伐事犹不济，只赢得仓皇北顾，千秋以下，能不愀然。</p></div>
+        <div class="joke-card"><p>“这是哪里？” “符拉迪沃斯托克。”奕䜣答。“这里明明是宁古塔。”吴兆骞说。“魑魅搏人应见惯，总输他，覆雨翻云手，冰与雪，周旋久。”顾贞观唱。“身世悠悠何足问，冷笑置之而已。寻思起、从头翻悔。一日心期千劫在，后身缘、恐结他生里。然诺重，君须记。”容若答。</p></div>
+        <div class="joke-card"><p>“这是哪里？”不逮门之女问。“曼彻斯特。”柳下惠答。（曼彻斯特，男人的胸膛）</p></div>
+        <div class="joke-card"><p>周威烈王二十三年，豫让刺赵襄子，伏于所当过之桥下。襄子至桥，马惊，襄子曰：“逢桥须下马”，索之，得豫让，遂杀之。</p><p>建炎三年，金兵过杨子桥，游骑至瓜洲，赵九大惊，决策南渡。御舟已戒，黄潜善等苍黄鞭马南驰。争渡，死者枕藉。潜善曰：“过渡莫争船”。而司农卿黄锷至江上，军士闻其姓以为潜善也，争数其罪，挥刃而杀之。</p><p>果然是，逢桥须下马，过渡莫争船，若能依此语，行路免迍邅。（宋诗题驿壁，被称为征途药石）</p></div>
+        <div class="joke-card"><p>追忆似水年华——薄太后经常会想起在代地读“上善若水，水善利万物而不争”的日子。（追忆似水年华，道德经）</p></div>
+        <div class="joke-card"><p>宋明帝即位，四方反叛。时台军据赭圻，南贼屯鹊尾，相持久不决。张兴世以兵数千潜出鹊尾其上，因险自固，随宜断截，使其首尾周遑、进退疑沮，中流一梗，粮运自艰，而以奇致胜。此太极揽鹊尾也。</p></div>
+        <div class="joke-card"><p>万岁通天年，契丹寇陷冀州，河北震动，则天乃思起复狄仁杰，曰，“仁远乎哉？我欲仁，斯仁至矣。”遂征仁杰为魏州刺史。（论语）</p></div>
+        <div class="joke-card"><p>春秋，陈灵公与孔宁、仪行父通於夏姬，皆衷其衵服，以戏于朝。<br>北齐高洋，或袒露形体，涂傅粉黛，散发胡服，杂衣锦彩。<br>历史上的女装大佬。</p></div>
+        <div class="joke-card"><p>北魏有名将费穆，以大行诛罚恐怖的空气进言尔朱荣，致河阴之变。后来小城之春的导演费穆讲究的是电影里创造空气。北周有膳部大夫李安，宇文护走狗，毒杀周明帝。后来擅长营造戏剧冲突的李安拍了一部饮食男女。。。清道光琉球有个杨德昌，官拜紫金大夫。后来犀利的杨德昌，拍过牯岭街少年和一一等。<br>#历史上的名导演</p></div>
+        <div class="joke-card"><p>有说康熙是皇帝界的天花板的，因其得过天花。那宋仁宗则是皇帝界的赤脚板，传说他是赤脚大仙下凡。唐睿宗则是皇帝界的跷跷板，两上两下，把武则天和唐明皇都跷上高位。还有明僖宗，是皇帝界的七巧板。</p></div>
+        <div class="joke-card"><p>读宋史常想起三然。<br>过界河矣。张叔夜乃矍然而起，仰天大呼，遂不复语。<br>旁有卒执杖子，击杖作声而叱：“乂手立正！”岳飞初不闻，后悚然声诺而乂手矣。<br>韩世忠艴然变色曰：“相公！莫须有三字，何以服天下！”<br>矍然，悚然，艴然。</p></div>
+        <div class="joke-card"><p>梁师都干掉过唐世宗，后又被唐太宗派柴绍和薛万均干掉。唐德宗本来要给唐代宗上庙号世宗，避李世民讳？避梁师都讳？世代世代，代，犹世也。</p></div>
+        <div class="joke-card"><p>隋文有大索貌阅，以防容隐，可以人脸识别。</p></div>
+        <div class="joke-card"><p>李渊入长安立的隋恭帝名叫杨侑，估计是因为他名字取得好，侑酒之欢尔。真正被叫去宴会上给自己当年的臣子斟酒侑宴的是晋怀帝司马炽司马丰度，青衣行酒的风度。</p></div>
+        <div class="joke-card"><p>襄公十年，晋荀偃士匄请伐偪阳，围之，弗克。孟氏之臣秦堇父辇重如役，偪阳人启门，诸侯之士门焉，县门发，孔子父叔梁纥抉之以出门者，大喊，Open the door！(末代皇帝)<br>武德九年，玄武门变，东宫齐府兵趣玄武门，张公谨多力，独闭关以拒之，大喊，Hold the door! （权游）</p></div>
+        <div class="joke-card"><p>韩琦曾对狄青说过，东华门外唱名的才是好儿郎。好儿郎则兵败好水川，一蟹不如一蟹；刺面贼却常为先锋，破城略州，城谷筑堡，扼贼要害，临敌被发、带铜面具，出入贼中，皆披靡莫敢当。狄青可以对韩琦文彦博之流说，Talk is cheap. Show me the code.</p></div>
+        <div class="joke-card"><p>唐史里两面三刀的有笑里藏刀李义府，口蜜腹剑李林甫，都不如一面五刀的渊盖苏文，貌魁秀，美须髯，冠服皆饰以金，佩五刀，左右莫敢仰视。使贵人伏诸地，践以升马。出入陈兵，长呼禁切，行人畏窜，至投坑谷。</p></div>
+        <div class="joke-card"><p>刘仁轨在真岘城吟道：<br>我愿意是废墟，<br>在峻峭的山岩上，<br>这静默的毁灭<br>并不使我懊丧……<br>只要我的爱人<br>是青青的常春藤，<br>沿着我荒凉的额，<br>亲密地攀援上升。<br>福信等以真岘城险要，加兵守之。仁轨伺其稍懈，引新罗兵夜傅城下，攀草而上，比明，入据其城，遂通新罗运粮之路。</p></div>
+        <div class="joke-card"><p>哪个城池皇帝们都不要？<br>大行城。</p></div>
+        <div class="joke-card"><p>雷托厄崔迪昔在卡拉丹，闻有谣曰：张吾弓，射东墙，前至沙丘当灭亡。后帝以厄拉科斯更赐，公虽知不祥，亦将兵往，见其地瘠人众，犹有地堡，丈夫悲歌慷慨，女子勤于机织。乃抚其土族，游于瀚海，见巨虫，救孤弱，远沙丘而循別路，见一群小儿辇沙为阜，问之何为，答云此为#沙丘 也，夜归而亡。<br>秦始皇崩于沙丘，赵武灵王薨于沙丘。雷托厄崔迪公爵还敢去沙丘。</p></div>
+        <div class="joke-card"><p>读唐史，神龙之王同皎，唐隆、先天之刘幽求，皆不平则鸣，慷慨之士。大凡物不得其平则鸣。草木之无声，风挠之鸣。水之无声，风荡之鸣。</p></div>
+        <div class="joke-card"><p>读唐史，唐玄宗确是个承前启后的人物，前承初唐三次玄武门之变，第四次就是他的唐隆之变，买一送一还有一个先天之变；中间以姚崇用事(十事要说)及宋璟用人，开启盛唐；其后又启中晚唐之“长安六破，天子九逃”之第一破第一逃，弄权收刮之佞臣、专权横行之宦官、拥兵自重之节度使皆由其肇始。</p></div>
+        <div class="joke-card"><p>读唐史，郭子仪免胄、释甲、投枪，而进回纥执弓注矢之阵的风度，千载谁堪伯仲？唯春秋晋之先轸，“匹夫逞志于君而无讨，敢不自讨乎？”免胄入狄师，死焉。<br>而那一连串的动作，则不免想起左传之楚子闻之，投袂而起，屦及于窒皇，剑及于寝门之外，车及於蒲胥之市。</p></div>
+        <div class="joke-card"><p>唐代的房产税叫税间架，新唐书载，赵赞复请税间架，其法：屋二架为间，上间钱二千中间一千下间五百，匿一间杖六十，告者赏钱五万。泾原兵变时五千兵瓦解长安民心的时候喊的口号就是“不夺尔商户僦质，不税尔间架除陌矣。”大乱之后，德宗罪己诏中才废除“其垫陌及税间架竹木茶漆榷铁等诸色名目悉宜停罢”。</p></div>
+        <div class="joke-card"><p>唐末王仙芝号平均大将军，估计擅长除法，裴偓王铎拿个左神策军押牙来忽悠他，他想招安也不行，底下人算了下那么点芝麻绿豆根本平均不下来。黄巢号冲天将军，注定想香阵透长安。与之对仗的，两汉之际有个王戎，号称扫地大将军，最后难免被光武帝扫地。</p></div>
+        <div class="joke-card"><p>唐末落雕侍御高骈高千里，开始也是个人物，虽然打仗喜欢像梅丽珊卓一样搞点厌胜之法，好在屡建边功，自张璘死在黄巢手后，开始畏战自保，致两京失守。乾隆把他和明末左良玉列为一类。当时想养寇自重的，宋威也不想想丁固，倒是刘巨容说得辛酸，朝家多负人，有危难，不爱惜官赏，事平即忘之，不如留贼。（射雕英雄。高骈喜欢装神弄鬼，镇安南剖十七岁处女，战南诏则焚纸画人马散小豆，军中壮士皆耻之。丁固，彭城大战曾纵刘邦，后归汉被刘邦游行示众砍头。高祖行军遇丁公。）</p></div>
+        <div class="joke-card"><p>唐末贩私盐的多，姓朱的也多。光启三年，秦宗权集中全部兵力进攻汴州朱温，朱温约了郓州的天平节度使朱瑄、兖州的泰宁节度使朱瑾，合三镇兵力打败宗权，此三大头领，史称朱头三。（后朱瑄朱瑾都被朱温吞并，一死一逃。朱温喜好攀亲戚，与母同姓则拜为舅如王重荣，姓朱的就拜为兄）</p></div>
+        <div class="joke-card"><p>唐末还有个朱，沙陀李克用，祖上原姓朱邪，其先生于雕窠中，酋长以其异生，诸族传养之，遂以“诸爷”为氏，言非一父所养也。家传对联，春满乾坤爹满门。</p></div>
+        <div class="joke-card"><p>残唐五代读到途穷出走的韩偓，猛然间想起他的两句诗，拙谋却为多循理，所短深惭尽信书。以前以为不过是书生自嘲，不曾想里面包含了他有志匡扶唐室却在强藩林立下百无一用的英雄气短。还好他老来在南方耕樵自娱，南国云从海上来，枳篱茅屋共桑麻，算得上是尽道途穷未必穷。</p></div>
+        <div class="joke-card"><p>John Snow初到长城，意志消沉，时小恶魔以侏儒勉励私生子，付以唐书二卷。雪诺喜读阿史那氏平高昌龟兹于阗事，以其高贵的蓝色之狼自喻，终日对绝境长城，以摩此城荡尽夜王衣柜为志。山姆塔利每翻其所读，则“阿史那思摩”而已。</p></div>
+        <div class="joke-card"><p>至元十一年，和尚卒于官，赠司徒、上柱国，谥庄肃。御史大夫月魯那延荐其子，曰千奴来拜。元世祖问其子有千人？对曰，只一人，姓千名奴。世祖念其功臣子，即以其父官授之，拜武德將軍、江南浙西道提刑按察使。</p></div>
+        <div class="joke-card"><p>安禄山手下两个军师，一个叫高尚，一个叫严庄，非常对仗。 （高尚确实高尚，追随安庆绪直到为史思明所杀。严庄则不庄严，叛唐，叛安禄山，叛安庆绪，降唐，官至司农卿）</p></div>
+        <div class="joke-card"><p>太平兴国年间，宋太宗将大量文人召入馆阁，让他们修书，还跟他们说，开卷有益。真内卷高手。</p></div>
+        <div class="joke-card"><p>唐昭宗时cto朱全忠设计不来内侍省数据库，故诛第五可范。（数据库范式第五范式，朱温曾受过宦官的气，所以天复三年一口气诛杀第五可范为首的宦官七百一十人）</p></div>
+        <div class="joke-card"><p>有个记者去残唐采访一群节度使，他问第一个：“你每天都干什么？”那人说：“吃饭，睡觉，打豆豆！”接着又问第二个，还是说：“吃饭、睡觉、打豆豆！”记者带着困惑问其他的节度使，答案都一样。就这样一直问了99个节度使。当走到第100个人时，记者走过去问他：每天都做些什么啊？那人回答：“吃饭，睡觉。”记者惊奇地又问：“你怎么不打豆豆？”那人撇着嘴，瞪了记者一眼说：“我是唐昭宗李晔，我就是豆豆！”（唐昭宗李晔被节度使李克用、李茂贞、韩建、朱温等多次或攻打或欺凌）</p></div>
+        <div class="joke-card"><p>穷绔也就是裤裆是怎么发明的？霍大司马讳光。（霍大司马忌讳光，又汉书，光欲皇后擅宠有子，帝时体不安，左右及医皆阿意，言宜禁内，虽宫人使令皆为穷绔，多其带，后宫莫有进者。）</p></div>
+        <div class="joke-card"><p>隋军从井里拉出陈后主及张贵妃孔贵嫔后问皇后呢？陈后主说：“观音自在。”//@文章奇哉啤酒美哉:“摩诃无量。”陈后主说。（陈主通于萧摩诃之妻，故摩诃初无战意，所以说摩诃无量。沈婺华为陈后主皇后，陈亡时，沈后居处如常，隋亡时，在毗陵天净寺出家为尼，法号观音，所以说观音自在）</p></div>
+        <div class="joke-card"><p>太平兴国四年，宋太宗自高粱河以驴车车驾归来，军中皆望而礼之，Salut！(法语，你好，音傻驴)</p></div>
+        <div class="joke-card"><p>坡仙云：若言声在琴弦上，放在匣中胡不鸣。若言声在指头上，何不于君指上听。从此悟出弦论。</p></div>
+        <div class="joke-card"><p>李存勖的玉玺怎么得到的？靠传真。（资治通鉴，黄巢之破长安也，魏州僧传真之师得传国宝，藏之四十年，至是，传真以为常玉，将鬻之，或识之，曰：“传国宝也。”传真乃诣行台献之，将佐皆奉觞称贺。）</p></div>
+        <div class="joke-card"><p>梁晋夹河之战时，后梁王瓒对着对岸的皇帝套娃，差点干掉其中三个。李存勖(后唐庄宗)的马步军总管李嗣源(后唐明宗)，李嗣源的女婿石敬瑭(后晋高祖，著名汉奸儿皇帝)，石敬瑭的部将刘知远(后汉高祖)。李存勖后来的亲兵从马直里还有郭威(后周太祖)。梁唐晋汉周，凉糖进寒粥。</p></div>
+        <div class="joke-card"><p>许多年之后，面对兴教门呼啸而过的流矢，后唐庄宗李存勖将会回想起，他父亲送给他三根箭矢的那个遥远的下午。还有幽州城的车梯并进（破刘仁恭），易州城的风雪兼程（破耶律阿保机），汴州城的狂飙突进（破朱友贞）。（百年孤独）</p></div>
+        <div class="joke-card"><p>许多年之后，面对绛霄殿下伶人善友抱来的乐器以及乐器燃起的熊熊烈火，后唐庄宗李存勖将会回想起，这些乐器还是乐器时曾经奏起的曲子而“李天下”与俳优杂戏于庭的那些遥远下午。再许多年之后，君子欧阳修将会有千古一叹，夫祸患常积于忽微，而智勇多困于所溺。（百年孤独，伶官传序）</p></div>
+        <div class="joke-card"><p>初，庄宗百战方得河南，乃对功臣举手云，吾于十指上得天下。军中始有怨怒。兴教门之变，从马直郭从谦以弓箭攻庄宗，曰，指上得来终觉浅，绝知此事要弓行。庄宗中流矢，饮刘后酪，崩。</p></div>
+        <div class="joke-card"><p>九品中正制为何由陈群提出。群(Group)论之也，上品无寒门，下品无世族，此之谓闭包(Closure)也。白乐天诗“惊风吹起塞鸿群，半拂平沙半入云”，此研究半群(Semigroup)者也。</p></div>
+        <div class="joke-card"><p>东汉章德窦太后最喜欢虎皮垫子：文茵畅毂，驾我骐馵。窦宪对刺客说：在其板屋。杀畅于屯卫之中。（刘畅私章德，窦宪杀之。诗经，文茵畅毂，驾我骐馵。言念君子，温其如玉。在其板屋，乱我心曲。）</p></div>
+        <div class="joke-card"><p>梁师围枣强。城中矢石将竭，谋出降，有一卒奋曰：“一个人要像一支军队”，夜，缒城出，诣梁军诈降，李周彝不许其剑，使荷担从军，卒得间举担击周彝首，“当头棒喝”，周彝踣地几死。朱温怒，病益甚，于蓨县退兵。归泛九曲池，御舟倾，堕溺于池中，“醍醐灌顶”，惊悸久之，疾增甚。后遇弑 //@敦煌郡公 #从中作梗#“一个人要像一支队伍。” 冒险湾的莱德坚定地说。</p></div>
+        <div class="joke-card"><p>“睡大觉！”乾隆驻跸大觉寺说。//@glorysdj:太清之难，伤大雅，伤大心，毁大器，灭大威，破大球…//@glorysdj:“离大谱！”刘秀对刘子舆说。// @敦煌郡公 #从中作梗#“破大防！” 宋英宗看完奏状说。</p></div>
+        <div class="joke-card"><p>历史上谁最崇敬上峰？必须是北周亲军马军都指挥使郭崇威。何解？郭崇威，崇敬，郭威。</p></div>
+        <div class="joke-card"><p>淖齿何以杀齐湣王？ 东帝汶。 此处汶mén心中昏暗不明</p></div>
+        <div class="joke-card"><p>寿王李琩说，时代的一粒灰，落在个人头上，就是一座山。</p></div>
+        <div class="joke-card"><p>重耳出于五鹿，乞食于野人，野人与之块。公子怒，欲鞭之。赵衰曰：“天赐也！土者，有土也，君其拜受之。”稽首受而载之。赵衰曰：“格局有了。”</p></div>
+        <div class="joke-card"><p>子击磬于卫，有荷蒉而过孔氏之门者，曰：“有心哉，击磬乎！”既而曰：“鄙哉！格局小了！硁硁乎！莫己知也，斯己而已矣。深则厉，浅则揭。”子曰：“果哉！末之难矣。”仪封人请见，出曰：“天下之无道也久矣，天将以夫子为木铎。”子曰：“格局有了！”</p></div>
+        <div class="joke-card"><p>李密杀翟让，李渊来信：恭贺大弟，弄瓦之喜。天生烝民，必有司牧。当今为牧，非子而谁！老夫年逾知命，愿不及此。欣戴大弟，攀鳞附翼，唯弟早膺图箓，以宁兆民！宗盟之长，属籍见容，复封于唐，斯荣足矣。//@新西兰冷百科孙小社 #从中作梗# “如何评价刘备巧取同为汉室宗亲治下的益州并以此为根据地快速发展？”“弄璋之喜。”</p></div>
+        <div class="joke-card"><p>孝昌四年，梁武帝以魏北海王元颢为魏王，遣东宫直閤将军白袍陈庆之将兵送之，恶意返乡。</p></div>
+        <div class="joke-card"><p>义熙十三年，后秦姚泓闻王镇恶为咨议参军，行龙骧将军，领前锋，悬军远入关中，大惊失色，曰：此恶意返乡也！</p></div>
+        <div class="joke-card"><p>司马光，与王介甫书。<br>司马光，与王介甫第二书。<br>王安石，答司马谏议书。<br>司马光，与王介甫第三书。<br>王安石，吾岂匏瓜也哉？</p></div>
+        <div class="joke-card"><p>在康妮新生儿的洗礼上，祷词之后，音乐相和，迈克·柯里昂念了句道德经：“强梁者不得其死，吾将以为教父。”枪声以后，钟声响起。</p></div>
+        <div class="joke-card"><p>哪个帝王吃定匈奴？汉武？不，晋惠。？？？何解？何不食肉糜，晋惠食肉糜多矣，肉糜者，荤粥也，荤粥者，古之匈奴也。</p></div>
+        <div class="joke-card"><p>拜登的祖师，当是辽穆宗耶律璟耶律述律，有疾，不能近妇人，左右给事，多以宦者，然畋猎好饮酒，不恤国事，每酣饮，自夜至旦，昼则常睡，国人谓之睡王。<br>特朗普的祖师，当是唐西山八国联军的八国招讨副使，八分之七都是董王。</p></div>
+        <div class="joke-card"><p>这日众人打牌，人多，牌多。<br>刘邦一手好牌，激动，先出，汉出三杰。<br>黄蓉笑嘻嘻看着周伯通，四张机，鸳鸯织就…<br>刘备凑了五张，喊，五虎上，将。<br>宋真宗父子摸着五张鬼不敢出。<br>宋徽宗此时尚风雅，打出，我有六贼。<br>萧鸾藏好六贵同朝之牌。<br>唐顺宗中过风，不太利索地抖出牌，两个王带八个司马，整整齐齐。<br>司马衷不太识数，数了半天，说，南风，咱这是王炸吧，八个王！<br>众皆服。</p></div>
+        <div class="joke-card"><p>聊斋荷花三娘子篇，宗湘若近一女，挼莎按摩，上下其手。女笑曰：腐秀才！你一会儿摩，一会儿上下，这是要摩卡么？@敦煌郡公 #从中作梗#“上仙至此，所为何事啊？”敖广说。“拿铁。”孙悟空说。</p></div>
+        <div class="joke-card"><p>在瑞文戴尔选远征队时，精灵王爱隆很怀疑这个皮聘·图克的能力，提议将他送返夏尔，甘道力主选入皮聘。众皆不解。甘道夫说，在成吉思汗手里，一个图克就是十个图孟安，就是十支万人队。后来皮聘·图克果然在艾辛格，刚铎和黑门的战斗中英勇无畏，并在第四世纪13年成为第32任夏尔主帅。</p></div>
+        <div class="joke-card"><p>贞观二年，高丽及百济、新罗、高昌、吐蕃等诸国酋长，亦遣子弟入于国学之内。鼓箧而升讲筵者，八千余人，济济洋洋焉。此之谓联邦学习（FL，Federated Learning）</p></div>
+        <div class="joke-card"><p>赵普少从吏事，寡学术，及为相，太祖常劝以读书。晚年手不释卷，每归私第，阖户启箧取书，读之竟日。及次日临政，处决如流。既薨，家人发箧视之，则《论语》二十篇也。这叫做深度学习(DL, Deep Learning)。</p></div>
+        <div class="joke-card"><p>汉武给司马迁的封号？信陵君。<br>孟珙有尝后图传世，也称孟尝君。<br>晋文平原国，退一舍而原降，也称平原君。<br>申公巫臣机谋算尽终于抱得夏姬（天下第一美人）之后，说，哈哈，请叫老夫春申君。</p></div>
+        <div class="joke-card"><p>多少年后，惟稼轩能摹刘美当时心情： 娥儿雪柳黄金缕，笑语盈盈暗香去。众里寻他千百度，蓦然回首，那人却在，灯火阑珊处。</p></div>
+        <div class="joke-card"><p>宋太祖建隆初，加李筠兼中书令，遣使谕以受周禅。筠即欲拒命，左右为陈历数，方僶俛下拜，貌犹不恭。及延使者升阶，置酒张乐，遽索周祖画像悬壁，涕泣不已，曰，To be, or not to be, that is the question.</p></div>
+        <div class="joke-card"><p>“十步杀一人，千里不留行”郓州的李存勖望向汴州。//@glorysdj:“石破天惊逗秋雨”，昆阳城下的刘秀默念。//@敦煌郡公 #从中作梗#“平生五色棒，愿补舜衣裳。” 洛阳北部尉曹操说。</p></div>
+        <div class="joke-card"><p>李渊在晋阳宫醒来，吟道：昨夜雨疏风骤，浓睡不消残酒。试问卷帘人，却道海棠依旧。知否，知否？应是环肥燕瘦。</p></div>
+        <div class="joke-card"><p>主父偃看着刘胜等诸侯王，进奏曰，“镜子和父亲的身份是可憎的，因为它使宇宙倍增和扩散”，遂行推恩令。 (博尔赫斯：特隆、乌克巴尔、奥比斯·特蒂乌斯 ****)</p></div>
+        <div class="joke-card"><p>赵光义对赵匡胤说的在德不在险，赵匡胤以为是赵德昭，而赵光义指的是程德玄。</p></div>
+        <div class="joke-card"><p>赵宋是火德的话，那么高粱河，岐沟关，澶渊，三川口，好水川，定川砦这些就不足为怪了</p></div>
+        <div class="joke-card"><p>稼轩词“青山遮不住，毕竟东流去。江晚正愁余，山深闻鹧鸪。”写的是谁？耶律休哥。何解？鹧鸪者，行不得也哥哥，休哥也。</p></div>
+        <div class="joke-card"><p>朱元璋最讨厌的两个古人是谁？澹台灭明，耶律乙辛。灭明这个我懂，耶律乙辛？耶律乙辛曾梦食日月。</p></div>
+        <div class="joke-card"><p>李世民阻洺水列营，预拥洺水上流，谓守堤吏曰：扫黑吧</p></div>
+        <div class="joke-card"><p>对于天祚帝给完颜阿骨打不断送人头，谁有话说？驸马萧特末有话说，特末的。</p></div>
+        <div class="joke-card"><p>唐张说见枯叶，有诗曰，花殊鸟飞处，叶镂虫行道，叶镂叶镂，此后枯叶皆为黄色。//@glorysdj:守仁格竹，格了一棵，又格一棵，直到格林，格林格林，此后竹林皆为绿色。//@新西兰冷百科孙小社#从中作梗# 礼记载，士死，曰“不禄”。孟子出世前，儒家势微，诸士子效孔子法，乘桴浮于海，不幸遇风浪，船倾覆，无人幸免，诸士子不禄、不禄，不禄、不禄…此后，大海的颜色是蓝。</p></div>
+        <div class="joke-card"><p>蓝玉北征还，夜扣喜峰关。关吏不时纳：“斯里兰卡”。</p></div>
+        <div class="joke-card"><p>少帝光熹元年，大舅何进谋诛宦官，二舅何苗屡为宦官说项。事败。少帝对十常侍说：回家三天，二舅治好了我的精神内耗。(时流行二舅治好了我的精神内耗)</p></div>
+        <div class="joke-card"><p>仿生人会梦见电子羊吗？慕容翰对慕容皝说：我所见过的事物，你们绝对无法置信，我目睹了大风黑气状若堤防或高或下临覆在参合陂上，我看见广固城的冠冕在建康东市的黑暗中闪耀，所有这些时刻，终将随时间消逝，一如眼泪消失在雨中。（慕容翰和仿生人一样的身份认同困惑）</p></div>
+        <div class="joke-card"><p>薛仁贵三箭定天山后，时称定厄，传为白虎转世，白虎就是大猫，和薛丁山射来射去，大猫叼来叼去，死生生死，此事即，薛定谔的猫。</p></div>
+        <div class="joke-card"><p>刘备为何要三顾茅庐才能与诸葛亮相会？ The Ramans always do things in threes.//@敦煌郡公 #从中作梗#“侯景到底说了什么，能让梁武帝收留自己？”“整个宇宙将为你闪烁？”“？？？”（与罗摩相会）</p></div>
+        <div class="joke-card"><p>唐僖宗：那时候，每当我感到渺小或寂寞，我会眺望北方，警惕来自那里对王朝的威胁，结果我完全看错了方向。那个来自东方、到达我的都城、离开后写了两首菊花诗的男人，真正成了盛开之菊，开菊，Kaiju。（《环太平洋》）</p></div>
+        <div class="joke-card"><p>历史上的几个厨子：齐小白的易牙，张祚的徐黑，高澄的兰京，耶律璟的庖人辛古，宇文护的饮食男女李安。</p></div>
+        <div class="joke-card"><p>壬寅，至长安城西，李嗣业为前军，乃肉袒，执长刀，立于阵前，大呼奋击，当其刀者，人、革、马俱碎，皆为二分，此之谓“二分之西革马”。</p></div>
+        <div class="joke-card"><p>闲读宋史，依旧为后主神伤。才子何必生在帝王家。中主词尚且细雨梦回鸡塞远，后主词却只有衩袜步香阶手提金缕鞋。估计赵光义由此对衩袜早有非想，君不见姚士麟见只编谓熙陵之图袜仅至半胫耳。</p></div>
+        <div class="joke-card"><p>苻坚读天龙八部：似曾相识燕归来。</p></div>
+        <div class="joke-card"><p>纪昀效仿聊斋作阅微草堂笔记，也可称作纪效新书。</p></div>
+        <div class="joke-card"><p>“这么近，那么美，周末到河北。” 大象二年，杨坚对韦孝宽说。//@敦煌郡公 #从中作梗#“这么近，那么美，周末到河北。” 秦昭襄王回忆早年经历时如是说。</p></div>
+        <div class="joke-card"><p>高平陵之变，懿使爽所信殿中校尉尹大目谓爽，唯免官而已，以洛水为誓，爽乃信，后下狱夷三族。尹大目曰：Damn! 淮南二叛，文鸯夜攻司马师，军中震惊，师惊骇目突出，而鸯引还，大目单身乘大马，被铠胄，追之，遥相与语，君侯何苦不可复忍数日中也！文不信，厉声骂，张弓欲射。大目泣涕曰：世事败矣，善自努力！Damn！尹·Damn传</p></div>
+        <div class="joke-card"><p>建安二年，公（曹操）到宛，张绣降，操纳张济之妻，绣复反。公与战，军败，为流矢所中。长子昂遇害。丁夫人视昂如己出，丁常言：“将我儿杀之，都不复念！”遂哭泣无节。太祖忿之，遣归家，欲离婚，问于孔融，孔融让离。//**张发财** @zhangfacai777 丕与冲闲步市井，见一人潜匿孀妇宅。丕遽问冲曰：“视之，像吾父否？” “曹冲称像”</p></div>
+      </div>
+    </section>
 
     <div class="footer">© glorysdj · Built with GitHub Pages</div>
   </div>
