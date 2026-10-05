@@ -56,6 +56,7 @@ RE_CURSOR_ALT = re.compile(r'\?cursor=([A-Za-z0-9]+)', re.S)
 def http_get(url: str) -> bytes:
     req = Request(url, headers=UA)
     with urlopen(req, timeout=TIMEOUT) as resp:
+        print(f"DEBUG: GET {url} -> HTTP {resp.status}")
         return resp.read()
 
 
@@ -100,9 +101,9 @@ def parse_timeline_page(page: str, instance: str):
     return tweets, next_cursor
 
 
-def fetch_via_html(instance: str):
+def fetch_via_html(instance: str, is_first_instance: bool = False):
     """Follow the timeline cursor until MAX_TWEETS or no more pages.
-    Saves the first page's raw HTML to debug_nitter.html for debugging."""
+    Saves the first instance's first page to debug_nitter_first.html for debugging."""
     collected = []
     seen = set()
     cursor = None
@@ -112,11 +113,11 @@ def fetch_via_html(instance: str):
         if cursor:
             url += f"?cursor={quote(cursor)}"
         page = http_get(url).decode("utf-8", "replace")
-        if first_page:
+        if first_page and is_first_instance:
             try:
-                with open("debug_nitter.html", "w", encoding="utf-8") as f:
+                with open("debug_nitter_first.html", "w", encoding="utf-8") as f:
                     f.write(page)
-                print(f"DEBUG: saved first page HTML ({len(page)} chars) from {instance}")
+                print(f"DEBUG: saved first-instance page ({len(page)} chars) from {instance}")
             except Exception as e:
                 print(f"DEBUG: failed to save HTML: {e}")
             first_page = False
@@ -181,9 +182,9 @@ def write_json(tweets, source):
 
 def main():
     # 1) Try HTML pagination on each instance until we get enough tweets.
-    for instance in INSTANCES:
+    for i, instance in enumerate(INSTANCES):
         try:
-            tweets = fetch_via_html(instance)
+            tweets = fetch_via_html(instance, is_first_instance=(i == 0))
             if tweets:
                 write_json(tweets, f"nitter-html:{instance}")
                 print(f"OK: fetched {len(tweets)} tweets via HTML from {instance}")
