@@ -1,30 +1,39 @@
 #!/usr/bin/env python3
-"""Fetch @glorysdj tweets from a Nitter instance RSS feed.
+"""Fetch @glorysdj tweets from Nitter, with timeline pagination.
+
+Primary: scrape the Nitter HTML timeline and follow the ?cursor= "show more"
+links to collect up to MAX_TWEETS.
+Fallback: if HTML parsing yields nothing, use the RSS feed (~20 tweets).
 
 No Twitter account needed. Tries multiple Nitter instances with fallback.
-Writes tweets.json in the same shape as the twscrape script so the
-frontend (index.html) works unchanged.
+Writes tweets.json in the same shape the frontend (index.html) expects.
 """
+import html
 import json
 import os
+import re
 import sys
 import xml.etree.ElementTree as ET
 from datetime import datetime, timezone
 from email.utils import parsedate_to_datetime
+from urllib.parse import quote
 from urllib.request import Request, urlopen
 from urllib.error import URLError
 
 SCREEN_NAME = os.environ.get("TWEET_SCREEN_NAME", "glorysdj")
+MAX_TWEETS = int(os.environ.get("TWEET_MAX", "100"))
+TIMEOUT = 25
+UA = {"User-Agent": "Mozilla/5.0 (X11; Linux x86_64) tweets-fetcher/1.0"}
 
-# Nitter instances, tried in order. First one that returns a valid RSS wins.
+# Nitter instances, tried in order.
 INSTANCES = [
+    "nitter.kareem.one",   # known-good from last run
     "nitter.net",
     "xcancel.com",
     "nitter.poast.org",
     "nitter.tiekoetter.com",
     "nitter.space",
     "lightbrd.com",
-    "nitter.kareem.one",
     "nitter.moomoo.me",
     "nitter.privacydev.net",
     "nitter.luiker.org",
@@ -32,25 +41,98 @@ INSTANCES = [
     "nitter.qwik.space",
 ]
 
-MAX_TWEETS = int(os.environ.get("TWEET_MAX", "200"))
-TIMEOUT = 20
+# --- HTML timeline parsing -------------------------------------------------
+
+RE_TWEET_BLOCK = re.compile(r'<div class="timeline-item[^"]*">(.*?)(?=<div class="timeline-item|<a class="show-more|</div>\s*</div>\s*</div>)', re.S)
+RE_TEXT = re.compile(r'<div class="tweet-content media-body"[^>]*>(.*?)</div>', re.S)
+RE_STATUS_HREF = re.compile(r'href="(/[^/]+/status/\d+[^"]*)"', re.S)
+RE_DATE = re.compile(r'<time datetime="([^"]+)"', re.S)
+RE_RETWEET = re.compile(r'icon-container retweet.*?tweet-stat-count">(\d+)</span>', re.S)
+RE_LIKE = re.compile(r'icon-container like.*?tweet-stat-count">(\d+)</span>', re.S)
+RE_CURSOR = re.compile(r'class="show-more"[^>]*href="[^"]*\?cursor=([^"&]+)"', re.S)
+RE_CURSOR_ALT = re.compile(r'\?cursor=([A-Za-z0-9]+)', re.S)
 
 
-def fetch_rss(instance: str) -> bytes:
-    url = f"https://{instance}/{SCREEN_NAME}/rss"
-    req = Request(url, headers={"User-Agent": "Mozilla/5.0 (tweets-fetcher)"})
+def http_get(url: str) -> bytes:
+    req = Request(url, headers=UA)
     with urlopen(req, timeout=TIMEOUT) as resp:
         return resp.read()
 
 
-def parse_rss(data: bytes, instance: str):
+def clean_text(raw: str) -> str:
+    # strip inner tags (links, line breaks) then unescape entities
+    raw = re.sub(r'<br\s*/?>', '\n', raw)
+    raw = re.sub(r'<[^>]+>', '', raw)
+    return html.unescape(raw).strip()
+
+
+def parse_timeline_page(page: str, instance: str):
+    """Return (tweets, next_cursor) for one timeline page."""
+    tweets = []
+    blocks = RE_TWEET_BLOCK.findall(page)
+    if not blocks:
+        blocks = re.split(r'(?=<div class="tweet-content media-body")', page)
+    for block in blocks:
+        m_text = RE_TEXT.search(block)
+        if not m_text:
+            continue
+        text = clean_text(m_text.group(1))
+        m_href = RE_STATUS_HREF.search(block)
+        href = m_href.group(1) if m_href else ""
+        url = f"https://{instance}{href}" if href.startswith("/") else href
+        if url:
+            url = url.replace(f"https://{instance}", "https://x.com", 1)
+        m_date = RE_DATE.search(block)
+        date_iso = m_date.group(1) if m_date else ""
+        m_rt = RE_RETWEET.search(block)
+        m_like = RE_LIKE.search(block)
+        tweets.append({
+            "id": href.rsplit("/", 1)[-1].split("#")[0] if href else "",
+            "date": date_iso,
+            "text": text,
+            "url": url,
+            "retweets": int(m_rt.group(1)) if m_rt else None,
+            "likes": int(m_like.group(1)) if m_like else None,
+            "views": None,
+        })
+    m_cur = RE_CURSOR.search(page) or RE_CURSOR_ALT.search(page)
+    next_cursor = m_cur.group(1) if m_cur else None
+    return tweets, next_cursor
+
+
+def fetch_via_html(instance: str):
+    """Follow the timeline cursor until MAX_TWEETS or no more pages."""
+    collected = []
+    seen = set()
+    cursor = None
+    for _page in range(0, 40):  # hard cap on pages
+        url = f"https://{instance}/{SCREEN_NAME}"
+        if cursor:
+            url += f"?cursor={quote(cursor)}"
+        page = http_get(url).decode("utf-8", "replace")
+        tweets, cursor = parse_timeline_page(page, instance)
+        for t in tweets:
+            key = t["id"] or t["url"] or t["text"][:64]
+            if key in seen:
+                continue
+            seen.add(key)
+            collected.append(t)
+        if not cursor or len(collected) >= MAX_TWEETS:
+            break
+    return collected[:MAX_TWEETS]
+
+
+# --- RSS fallback ----------------------------------------------------------
+
+def fetch_via_rss(instance: str):
+    url = f"https://{instance}/{SCREEN_NAME}/rss"
+    data = http_get(url)
     root = ET.fromstring(data)
     tweets = []
     for item in root.iter("item"):
         title = (item.findtext("title") or "").strip()
         link = (item.findtext("link") or "").strip()
         pub = (item.findtext("pubDate") or "").strip()
-        # Normalize the link to the canonical x.com URL
         if link:
             link = link.replace(f"https://{instance}", "https://x.com", 1)
         date_iso = ""
@@ -75,30 +157,44 @@ def parse_rss(data: bytes, instance: str):
     return tweets
 
 
+def write_json(tweets, source):
+    out = {
+        "screen_name": SCREEN_NAME,
+        "source": source,
+        "updated_at": datetime.now(timezone.utc).isoformat(),
+        "count": len(tweets),
+        "tweets": tweets,
+    }
+    with open("tweets.json", "w", encoding="utf-8") as f:
+        json.dump(out, f, ensure_ascii=False, indent=2)
+
+
 def main():
-    last_err = None
+    # 1) Try HTML pagination on each instance until we get enough tweets.
     for instance in INSTANCES:
         try:
-            data = fetch_rss(instance)
-            tweets = parse_rss(data, instance)
+            tweets = fetch_via_html(instance)
             if tweets:
-                out = {
-                    "screen_name": SCREEN_NAME,
-                    "source": f"nitter:{instance}",
-                    "updated_at": datetime.now(timezone.utc).isoformat(),
-                    "count": len(tweets),
-                    "tweets": tweets,
-                }
-                with open("tweets.json", "w", encoding="utf-8") as f:
-                    json.dump(out, f, ensure_ascii=False, indent=2)
-                print(f"OK: fetched {len(tweets)} tweets from {instance}")
+                write_json(tweets, f"nitter-html:{instance}")
+                print(f"OK: fetched {len(tweets)} tweets via HTML from {instance}")
                 return 0
-            last_err = f"{instance}: empty RSS"
-            print(f"WARN: {instance} returned empty RSS, trying next", file=sys.stderr)
-        except (URLError, ET.ParseError, TimeoutError, OSError) as e:
-            last_err = f"{instance}: {e}"
-            print(f"WARN: {instance} failed ({e}), trying next", file=sys.stderr)
-    print(f"ERROR: all Nitter instances failed. Last: {last_err}", file=sys.stderr)
+            print(f"WARN: {instance} HTML returned no tweets, trying next", file=sys.stderr)
+        except (URLError, TimeoutError, OSError, ET.ParseError) as e:
+            print(f"WARN: {instance} HTML failed ({e}), trying next", file=sys.stderr)
+
+    # 2) Fallback: RSS (fewer tweets, but more robust).
+    for instance in INSTANCES:
+        try:
+            tweets = fetch_via_rss(instance)
+            if tweets:
+                write_json(tweets, f"nitter-rss:{instance}")
+                print(f"OK (RSS fallback): fetched {len(tweets)} tweets from {instance}")
+                return 0
+            print(f"WARN: {instance} RSS empty, trying next", file=sys.stderr)
+        except (URLError, TimeoutError, OSError, ET.ParseError) as e:
+            print(f"WARN: {instance} RSS failed ({e}), trying next", file=sys.stderr)
+
+    print("ERROR: all Nitter instances failed (HTML and RSS).", file=sys.stderr)
     return 1
 
 
