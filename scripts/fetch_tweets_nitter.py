@@ -110,14 +110,25 @@ def solve_anubis(instance: str, page: str) -> bool:
         f"?id={challenge_id}&response={final_hash}&nonce={nonce}"
         f"&redir={quote(redir)}&elapsedTime=1500"
     )
-    try:
-        http_get(submit_url)
-        cookies = [(c.name, c.value[:20], c.path, c.domain) for c in _cookie_jar]
-        print(f"DEBUG: cookies after pass-challenge: {cookies}")
-        return True
-    except (HTTPError, URLError, TimeoutError, OSError) as e:
-        print(f"DEBUG: pass-challenge failed: {e}")
-        return False
+    import time
+    for attempt in range(3):
+        try:
+            http_get(submit_url)
+            cookies = [(c.name, c.value[:20], c.path, c.domain) for c in _cookie_jar]
+            print(f"DEBUG: cookies after pass-challenge: {cookies}")
+            return True
+        except HTTPError as e:
+            if e.code == 429 and attempt < 2:
+                wait = 15 * (attempt + 1)
+                print(f"DEBUG: pass-challenge 429, retrying in {wait}s (attempt {attempt+1}/3)")
+                time.sleep(wait)
+                continue
+            print(f"DEBUG: pass-challenge failed: {e}")
+            return False
+        except (URLError, TimeoutError, OSError) as e:
+            print(f"DEBUG: pass-challenge failed: {e}")
+            return False
+    return False
 
 
 # --- HTML timeline parsing -------------------------------------------------
