@@ -1,9 +1,18 @@
 {
   "screen_name": "glorysdj",
   "source": "nitter-rss:nitter.kareem.one",
-  "updated_at": "2026-10-12T18:51:56.302124+00:00",
+  "updated_at": "2026-10-15T22:03:11.210530+00:00",
   "count": 20,
   "tweets": [
+    {
+      "id": "2110726580960161945#m",
+      "date": "2026-10-15T13:36:46+00:00",
+      "text": "看到TypeSafe Jev，总会想起十几年前的TypeSafe Scala。我最喜欢的语言。",
+      "url": "https://x.com/glorysdj/status/2110726580960161945#m",
+      "retweets": null,
+      "likes": null,
+      "views": null
+    },
     {
       "id": "2107773032483959056#m",
       "date": "2026-10-07T10:00:26+00:00",
@@ -171,15 +180,6 @@
       "date": "2026-05-19T00:36:15+00:00",
       "text": "读荷马的时候，记得海伦是白臂膀的，银足的，美颊的，美发的，丰腴的。诺兰这次不用功。",
       "url": "https://x.com/glorysdj/status/2056534364796977219#m",
-      "retweets": null,
-      "likes": null,
-      "views": null
-    },
-    {
-      "id": "2038443104118976517#m",
-      "date": "2026-03-30T02:28:03+00:00",
-      "text": "R to @glorysdj: “让我给你们一些忠告，halfmen。”小恶魔对GPT及以后的大部分LLM说，“永远不要忘记你们是什么，因为世界肯定不会忘记。你们只有一半的Transformer，Deocder-only。把它当成盔甲，这样它就再也无法成为你们的弱点。把它变成你们的力量。” #从中作梗",
-      "url": "https://x.com/glorysdj/status/2038443104118976517#m",
       "retweets": null,
       "likes": null,
       "views": null
